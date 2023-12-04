@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% block title %} CHARGER UNE IMAGE {% endblock title %}
+    
+{% block menu %}
+
+{% endblock menu %}
+{% block main %} 
+    <h2>TELECHARGER UNE IMAGE</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Télécharger l'image</button>
+        </form>
+{% endblock main %}

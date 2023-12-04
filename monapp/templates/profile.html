@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} PROFIL {% endblock title %}
+    
+{% block menu %}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" aria-current="page" href="{% url 'edit_profile' %}">
+          <div>
+            <i class="fas fa-home fa-lg mb-1"></i>
+          </div>
+          Editer le Profil
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+{% endblock menu %}
+{% block main %} 
+        <div class="profile-container">
+          <h1>Profil de {{ user.username }}</h1>
+          <p>Email : {{ user.email }}</p>
+          <p>Date de naissance : {{ user.birth_date|date:"d/m/Y" }}</p>
+          <p>Rôle : {{ user.role }}</p>
+      
+          <hr>
+      
+          <h2>Publications de {{ user.username }}</h2>
+          {% for post in posts %}
+            <div class="post">
+              <h3>{{ post.titre }}</h3>
+              {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Image de {{ post.titre }}" class="post-image">
+              {% endif %}
+              <p>{{ post.description }}</p>
+              <p>Posté le {{ post.date_creation|date:"d/m/Y H:i" }}</p>
+              {% if request.user == post.auteur %}
+                <a href="{% url 'edit_post' post.id %}">Éditer</a>
+                <a href="{% url 'delete_post' post.id %}">Supprimer</a>
+              {% endif %}
+            </div>
+          {% empty %}
+            <p>Aucune publication n'a été trouvée.</p>
+          {% endfor %}
+        </div>
+ 
+{% endblock main %}

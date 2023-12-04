@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} FEED{% endblock title %}
+    
+{% block menu %}
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" aria-current="page" href="{% url 'monapp:profile_view' username=user.username %}">
+          <div>
+            <i class="fas fa-home fa-lg mb-1"></i>
+          </div>
+          Voir Profil
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" href="{% url 'monapp:logout' %}">
+          <div>
+            <i class="far fa-envelope fa-lg mb-1"></i>
+            <span class="badge rounded-pill badge-notification bg-danger"></span>
+          </div>
+          Se deconnecter
+        </a>
+      </li>
+    </ul>
+  </div>
+{% endblock menu %}
+{% block main %} 
+        {% for post in posts %}
+        <div>
+            <h2>{{ post.titre }}</h2>
+            <p>{{ post.description }}</p>
+            <img src="{{ post.image.url }}" alt="{{ post.titre }}">
+        </div>
+        {% endfor %}
+{% endblock main %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} CONTACT {% endblock title %}
+    
+{% block menu %}
+
+
+    {% endblock menu %}
+    {% block main %} 
+    
+        <section class="row justify-content-center mb-4 py-md-3">
+            Contactez-nous
+             Cel: 90273838
+             @anascovitch
+        </section>
+        <section>
+            <div class="container row justify-content-center">
+                <div class="row justify-content-center col-xl-5 col-md-8">
+                    <form class="bg-white rounded shadow-5-strong p-5 form-control" method="post">
+                        {% csrf_token %}
+                        <!-- Champs du formulaire: nom, email, message, etc. -->
+                        <div class="form-outline mb-4">
+                            <input class="form-label" type="text" name="nom" placeholder="Votre nom" required>
+                            <input class="form-label" type="email" name="email" placeholder="Votre email" required>
+                            <textarea name="message" placeholder="Votre message" required></textarea>
+                            <button type="submit">Envoyer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    
+   {% endblock main %}

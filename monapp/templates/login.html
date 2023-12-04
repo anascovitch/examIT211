@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+
+
+    {% block main %}
+                <h2 class=" row justify-content-center">CONNEXION</h2>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-5 col-md-8">
+                                <form class="bg-white rounded shadow-5-strong p-5 form-control" method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <div class=" container row justify-content-center">
+                                        <button class="" type="submit">Login</button>
+                                    </div>
+                                    
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+            <div class="container">
+                <p class= "row justify-content-center">Avez-vous un compte? <a class="row justify-content-center" href="{% url 'register' %}">S'enregistrer</a></p>
+            </div>
+            
+    {% endblock main %}
+    
+
+
+
+    

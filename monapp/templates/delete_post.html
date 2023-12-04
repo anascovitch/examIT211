@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} SUPPRIMER UN POST {% endblock title %}
+    
+{% block menu %}
+
+{% endblock menu %}
+{% block main %} 
+
+  <div class="delete-post">
+      <h2>Voulez-vous vraiment supprimer ce post? "{{ post.titre }}" ?</h2>
+  
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">Oui, supprimer ce post</button>
+      </form>
+  
+      <a href="{% url 'monapp:profile_view' username=user.username %}">Non, annuler</a>
+    </div>
+
+{% endblock main %}

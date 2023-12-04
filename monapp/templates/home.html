@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+    	<div id="templatemo_header">
+        	<div id="templatemo_search">
+              <form action="{% url 'monapp:search_image_posts' %}" method="get">
+                <input type="text" value="Rechercher des images" name="q" id="searchfield" title="searchfield" onfocus="clearText(this)" onblur="clearText(this)" />
+                <input type="submit" name="Rechercher" value="Search" alt="Search" id="searchbutton" title="Search" />
+              </form>
+           	</div>
+            <div class="cleaner"></div>
+			<div id="templatemo_menu">
+				<ul>
+					{# <li class="current home"><a href="#">Home</a></li> #}
+                    <li class="contact"><a href="{% url 'monapp:contact' %}">Contact</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="service">  <a href="{% url 'monapp:logout' %}">Bonjour {{ user.username }}, se Déconnecter</a></li>
+                    {% else %}
+                        <li class="service"><a href="{% url 'login' %}">Se Connecter</a></li>
+                        <li class="about"><a href="{% url 'register' %}">Inscription</a></li>
+                    {% endif %}
+                    {% if request.user.is_authenticated and request.user.role == 'creator' %}
+                        <li class="home"><a href="{% url 'monapp:profile_view' username=user.username %}">Voir Profil</a></li>
+                        {% endif %}
+                    
+                </ul>
+			</div>
+        </div>
+    </header>
+    <main>
+        <div class="templatemo_container">
+            <div class="mgtop"><h1>Bienvenue sur notre site de photographie</h1>
+            </div>
+            <div id="templatemo_content_area">
+            
+                <div id="templatemo_left">
+                
+                    <div class="templaetmo_section_1">
+                        <ul class="sub_menu">
+                            <li><a href="#" class="current">Latest News</a></li>          
+                            <li><a href="#">Our Clients</a></li>
+                            <li><a href="#">Our Design</a></li>
+                            <li><a href="#">Our Awards</a></li>
+                        </ul>
+                    </div>
+                
+                </div>
+            
+                <div id="templatemo_right">
+                    <h1>COLLECTIONS DE NOS PHOTOS</h1>
+                    <p>Avec Design Agency un monde nouveau s'offre à vous!!!</p>
+                    <p>Nous vous souhaitons la bienvenue sur ce blog ! Cet espace vous permet de vous exprimer et de partager vos expériences entre créateurs et abonnés. Afin qu'il reste agréable et convivial pour tous, nous vous demandons de bien vouloir respecter la Charte du blog. Nous vous souhaitons d'agréables conversations.</p>
+                    <p>Ce site met à disposition des photos de nos créateurs, de nos professionnels. Admirez et appréciez la qualité de leurs oeuvres...</p>
+                </div>
+                
+              <div class="templatemo_h_line"></div>
+                <div class="templatemo_section_2 left">
+                    <img src="{% static 'images/templatemo_img_1.jpg' %}" alt="hat" />
+                    <h3>Qui sommes-nous</h3>
+                    <p>Découvrez nos spécialistes. Des photographes talentieux. Nous couvrons tous types d'évènements </p>
+                </div>
+                <div class="templatemo_section_2">
+                     <img src="{% static 'images/templatemo_img_2.jpg'%}" alt="newspaper" />
+                    <h3>Special Packages</h3>
+                    <p>Nous vous proposons des prix défiant toute concurrence. N'hésitez pas à nous contacter</p>
+    
+                   
+                </div>
+                
+                <div class="cleaner"></div>
+            </div>
+
+            <div>
+                <p>Découvrez notre collection de photographies et laissez-vous inspirer par les œuvres de nos créateurs.</p>
+            </div>
+            <div>
+                <h2>Derniers Posts</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N° de post</th>
+                            <th>Description</th>
+                            <th>Date de Création</th>
+                            <th>Auteur</th>
+                            <!-- Ajoutez d'autres en-têtes de colonne si nécessaire -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in latest_posts %}
+                        <tr>
+                            <td>
+                                {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.titre }}">
+                                {% else %}
+                                Pas d'image
+                                {% endif %}
+                            </td>
+                            
+                            <td>{{ post.description }}</td>
+                            <td>Posté le {{ post.date_creation|date:"d/m/Y H:i" }}</td>
+                            <td>Par {{ post.auteur}}</td>
+                            <!-- Ajoutez d'autres colonnes si nécessaire -->
+                        </tr> 
+                        <tr>
+                            <td colspan="3">
+                                <!-- Boutons Suivre/Ne Plus Suivre -->
+                                {% if request.user.is_authenticated and request.user != post.auteur %}
+                                    {% if request.user in post.auteur.followers.all %}
+                                        <a href="{% url 'monapp:unfollow_user' username=post.auteur.username %}">Ne plus suivre</a>
+                                    {% else %}
+                                        <a href="{% url 'monapp:follow_user' username=post.auteur.username %}">Suivre</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        <tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">Aucun post n'a été trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+
+    </main>
+    <footer>
+        <div id="templatemo_footer">
+            Copyright © 2023 | Design Agency @anascovitch
+    </footer>
+</body>
+</html>
+

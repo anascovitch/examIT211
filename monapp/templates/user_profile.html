@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %} PROFIL CREATEUR/ABONNE{% endblock title %}
+    
+{% block menu %}
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" aria-current="page" href="{% url 'monapp:edit_profile'%}">
+          <div>
+            <i class="fas fa-home fa-lg mb-1"></i>
+          </div>
+          Editer le Profil
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" href="{% url 'password_change' %}">
+          <div>
+            <i class="far fa-envelope fa-lg mb-1"></i>
+            <span class="badge rounded-pill badge-notification bg-danger"></span>
+          </div>
+          Changer le mot de passe
+        </a>
+      </li>
+      {% if request.user.is_authenticated and request.user.role == 'creator' %}
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" href="{% url 'upload_image' %}">
+          <div>
+            <i class="far fa-envelope fa-lg mb-1"></i>
+            <span class="badge rounded-pill badge-notification bg-danger"></span>
+          </div>
+          Télécharger une image
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+</div>
+
+{% endblock menu %}
+{% block main %} 
+    <h1>Profil de  {{ user_profile.first_name }} {{ user_profile.last_name }}</h1>
+        <div class="profile-info">
+    
+            <h2>Nom d'utilisateur: {{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+            <p>Date de naissance: {{ user.birth_date|date:"d/m/Y" }}</p>
+            <p>Rôle: {{ user.role }}</p>
+        </div>
+        <br>
+        <br>
+        <div class="user-posts">
+            <h2>Vos Publications</h2>
+            {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.titre }}</h3>
+                    <p>{{ post.description }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.titre }}">
+                    {% endif %}  
+                    <!-- Détails du post -->
+                        <a href="{% url 'monapp:post_detail' post.id %}">Voir les détails du post</a>
+                    <!-- Lien pour éditer le post -->  
+                    {% if user == post.auteur %}
+                        <a href="{% url 'monapp:edit_post' post.id %}">Modifier le post</a>
+                    {% endif %}
+                </div>
+                {% empty %}
+                     <p>Cet utilisateur n'a pas encore de publications.</p>
+            {% endfor %}
+        </div>
+
+{% endblock main %}
+
