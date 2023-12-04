@@ -1,0 +1,70 @@
+
+Design Agency 
+
+Ce projet est une application web développé avec Django permet de montrer et de partager les travaux d'une association de photographe en vue de sa visibilité.
+ Ils mettent leurs photos en ligne et créent des posts à leur sujet sur un blog Ce site permet d'avoir deux types d’utilisateurs,
+les abonnés et les créateurs. Seuls les créateurs doivent pouvoir créer du
+contenu. Ce contenu est partagé dans un flux social, et les abonnés
+peuvent choisir quels créateurs ils veulent suivre.
+
+Démarrage Rapide
+
+Pour démarrer ce projet en local, vous devez disposer des outils suivants ou similaires:
+-xampp permet démarrer le serveur apache et mysql en mode local afin d'avoir accès à la base de données. 
+Le fichier de base données est joint au dossier et il est nommé:"monprojet_bd
+Il a été exporté donc assuré vous de l'avoir importé dans votre php my admin premièrement
+
+Voici le nom d'utilisateur et mot de passe pour avoir accès à la base de données :
+utilisateur: root
+mot de passe:
+
+
+-Un IDE, comme vscode : ouvrer le dossier monprojet et lancer le serveur django:
+python manage.py runserver
+Assurez vous que vous soyez dans le bon dossier sinon faites la cd monprojet
+
+  
+
+Prérequis
+
+Installer les applications citées plus haut. Ensuite:
+-demarrer xampp et lancer le serveur Apache et mysql
+Cliquer sur admin au niveau de mysql pour accéder à Php my admin. Importez le fichier monprojet_bd 
+
+-demarrer le projet dans le terminal de vscode avec le code python plus haut
+ 
+-lancer votre navigateur et saisissez l'adresse qui s'affiche dans le terminal 
+Généralement l'adresse est http://127.0.0.1:8000/
+
+Pour avoir accès au role d'administrateur: http://127.0.0.1:8000/admin/
+utilisateur:  root
+mot de passe : Rosepalm@1988
+
+Voici la liste des utilisateurs déja crées et leur mot de passe avec différents rôles de créateurs et d'abonnés
+ariella	ar1988@a	role abonné
+joanna	@@&ç__JO	role créateur
+
+Vous pouvez créer aussi les types d'utilisateurs que vous voulez pour tester l'application.Assurez vous d'avoir accès à la base de données
+
+Auteurs
+
+Le travail a été effectué par KUEVIAKOE ANANI M.
+ETUDIANT EN LPDWM à IPNET
+
+
+Ce projet est aussi disponible en public sur
+
+git clone https://github.com/anascovitch/examIT211.git
+
+
+Licence
+Ce projet n'est pas sous licence.
+
+
+
+Contact
+Anascovitch  - anani.kueviakoe@ipnetinstitute.com
+
+Lien du projet : https://github.com/anascovitch/examIT211.git
+
+
